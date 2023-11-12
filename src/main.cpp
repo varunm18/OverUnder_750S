@@ -73,21 +73,78 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+double voltage(int vel) {
+    return vel * 12 / 127;
+}
+double velocity(int vel) {
+    return vel * 600 / 127;
+}
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
-
+	cata.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	intake1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	intake2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	bool shoot = false;
+	double power = 0.9;
+	bool toggle = true;
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
+		int val = limit.get_value();
 
-		left_mtr = left;
-		right_mtr = right;
+		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+			intake1.move_velocity(190);
+			intake2.move_velocity(190);
+		}
+		else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+			intake1.move_velocity(-190);
+			intake2.move_velocity(-190);
+		}
+		else {
+			intake1.move_velocity(0);
+			intake2.move_velocity(0);
+		}
 
-		pros::delay(20);
+		if(master.get_digital(DIGITAL_R2)){
+			toggle = !toggle;
+		}
+
+		if(toggle){
+			cata.move_velocity(-50);
+			// if(!val||shoot){
+			// 	cata.move_velocity(-90);
+			// 	shoot = false;
+			// }
+			// else{
+			// 	cata.move_velocity(0);
+			// }
+
+			// if(val && master.get_digital(DIGITAL_R1)){
+			// 	shoot = true;
+			// }
+		}
+		else{
+			cata.move_velocity(0);
+		}
+
+		double lY = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+        double rX = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
+
+        int left = velocity(lY + rX);
+        int right = velocity(lY - rX);
+
+		// leftBack.move_voltage((left * 1000)*power);
+		// leftMid.move_voltage((left * 1000)*power);
+		// leftFront.move_voltage((left * 1000)*power);
+
+		leftBack.move_velocity((left)*power);
+		leftMid.move_velocity((left)*power);
+		leftFront.move_velocity((left)*power);
+		rightBack.move_velocity((right)*power);
+		rightMid.move_velocity((right)*power);
+		rightFront.move_velocity((right)*power);
+	
+		// leftBack.move_voltage((rB * 1000)*power);
+		// leftFront.move_voltage((rF * 1000)*power);
+
+		// rightBack.move_voltage((lB * 1000)*power);
+		// rightFront.move_voltage((lF * 1000)*power);
 	}
 }

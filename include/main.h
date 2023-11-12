@@ -50,7 +50,7 @@
  * concurrently! The okapi namespace will export all symbols inside the pros
  * namespace.
  */
-// using namespace pros;
+using namespace pros;
 // using namespace pros::literals;
 // using namespace okapi;
 
@@ -72,6 +72,7 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
+#include "headers/globals.h" 
 /**
  * You can add C++-only headers here
  */
