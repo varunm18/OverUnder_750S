@@ -72,7 +72,8 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-#include "headers/globals.h" 
+#include "headers/globals.h"
+#include "lemlib/logger.hpp"
 /**
  * You can add C++-only headers here
  */
