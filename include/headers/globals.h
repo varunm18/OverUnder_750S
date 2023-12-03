@@ -17,7 +17,11 @@ extern Motor rightBack;
 extern Motor rightMid;
 extern Motor rightFront;
 
+extern MotorGroup leftGroup;
+extern MotorGroup rightGroup;
+
 extern ADIDigitalIn limit;
+extern ADIDigitalOut wings;
 extern ADIEncoder verticalEnc;
 extern ADIEncoder horizontalEnc;
 

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/misc.h"
 #include "pros/rtos.hpp"
 
 /**
@@ -26,11 +27,11 @@ void on_center_button() {
 void initialize() {
 	lcd::initialize();
 	chassis.calibrate();
-	//SET INITIAL POINT
-	chassis.setPose(5.2, 10.333, 87);
+	// //SET INITIAL POINT
+	chassis.setPose(0, 0, 0);
 	
-	lcd::set_text(0, "Hello PROS User!");
-	lcd::register_btn1_cb(on_center_button);
+	// lcd::set_text(0, "Hello PROS User!");
+	// lcd::register_btn1_cb(on_center_button);
 
 	Task screenTask([&](){
 		while(true){
@@ -60,14 +61,78 @@ void disabled() {}
  */
 void competition_initialize() {}
 
-void autonDefault(){
+
+void closeAuton(){
+	chassis.moveTo(8.6,  -30   , 6000, 100);
+
+}
+void farAuton(){
+	intake1.move_velocity(190);
+	intake2.move_velocity(190);
+
+	chassis.moveTo(0, 53, 4000, 85);
+
+	intake1.move_velocity(100);
+	intake2.move_velocity(100);
+
+	chassis.turnTo(-50, 45, 800, false, 80);
+
+	delay(100);
+
+	//push into goal
+	chassis.moveTo(-15, 50, 4000, 80);
+
+	intake1.move_velocity(-190);
+	intake2.move_velocity(-190);
+
+	delay(200);
+
+	intake1.move_velocity(0);
+	intake2.move_velocity(0);
+
+	delay(200);
+
+	chassis.moveTo(-11, 50, 4000, 80);
+
+	delay(100);
+
+	chassis.turnTo(15, 67, 1000, false, 100);
+
+	delay(100);
 	
+	chassis.moveTo(12, 68, 4000, 80);
+
+	intake1.move_velocity(190);
+	intake2.move_velocity(190);
+
+	delay(200);
+
+	chassis.turnTo(-50, 45, 800, false, 80);
+
+	chassis.setPose(0, 0, 0);
+
+	delay(100);
+
+	chassis.moveTo(0, 50, 4000, 80);
+
+	intake1.move_velocity(-190);
+	intake2.move_velocity(-190);
+
+// 	chassis.moveTo(-20, 53, 4000, 80);
+
+// 	chassis.turnTo(30, 0, 10000);
+}
+
+void skills(){
+	cata.move_velocity(90);
 }
 
 void runAuton(int autonSelect) {
   switch (autonSelect) {
-    case 1: autonDefault(); break;
-    default: autonDefault(); break;
+    case 1: farAuton(); break;
+	case 2: closeAuton(); break;
+	case 3: skills(); break;
+    default: skills(); break;
   }
 }
 
@@ -83,7 +148,7 @@ void runAuton(int autonSelect) {
  * from where it left off.
  */
 void autonomous() {
-	runAuton(1);
+	runAuton(2);
 }
 
 /**
@@ -114,16 +179,17 @@ void opcontrol() {
 	intake2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 	bool shoot = false;
-	bool toggle = true;
+	bool toggle = false;
 
 	while (true) {
+		
 		int val = limit.get_value();
 
-		if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+		if(master.get_digital(DIGITAL_L1)){
 			intake1.move_velocity(190);
 			intake2.move_velocity(190);
 		}
-		else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+		else if (master.get_digital(DIGITAL_L2)){
 			intake1.move_velocity(-190);
 			intake2.move_velocity(-190);
 		}
@@ -132,43 +198,72 @@ void opcontrol() {
 			intake2.move_velocity(0);
 		}
 
+		// Wings
 		if(master.get_digital(DIGITAL_R2)){
 			toggle = !toggle;
+			while (master.get_digital(DIGITAL_R2))
+			{
+				delay(200);
+			}
 		}
 
-		if(toggle){
-			// cata.move_velocity(-50);
-			if(!val||shoot){
-				cata.move_velocity(-90);
-				shoot = false;
-			}
-			else{
-				cata.move_velocity(0);
-			}
+		wings.set_value(toggle);
 
-			if(val && master.get_digital(DIGITAL_R1)){
-				shoot = true;
+		// CATA Shoot on Command
+
+		// if(master.get_digital(DIGITAL_R2)){
+		// 	toggle = !toggle;
+		// }
+
+		// if(!val||shoot){
+		// 	cata.move_velocity(90);
+		// 	shoot = false;
+		// }
+		// else{
+		// 	cata.move_velocity(0);
+		// }
+
+		// if(val && master.get_digital(DIGITAL_R1)){
+		// 	shoot = true;
+		// }
+
+		// CATA AutoShoot
+		if(master.get_digital(DIGITAL_R1)){
+			shoot = !shoot;
+			while (master.get_digital(DIGITAL_R1))
+			{
+				delay(200);
 			}
+		}
+
+		if(shoot){
+			lcd::print(0, "true");
+		}
+		else{
+			lcd::print(0, "false");
+		}
+
+		if(shoot||!val){
+			cata.move_velocity(90);
 		}
 		else{
 			cata.move_velocity(0);
 		}
 
-		double lY = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
-        double rX = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
+		double rX = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+        double lY = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
 
         int left = velocity(lY + rX);
         int right = velocity(lY - rX);
 
-		// leftBack.move_voltage((left * 1000)*power);
-		// leftMid.move_voltage((left * 1000)*power);
-		// leftFront.move_voltage((left * 1000)*power);
+		leftGroup.move_velocity((left)*power);
+		rightGroup.move_velocity((right)*power);
 
-		leftBack.move_velocity((left)*power);
-		leftMid.move_velocity((left)*power);
-		leftFront.move_velocity((left)*power);
-		rightBack.move_velocity((right)*power);
-		rightMid.move_velocity((right)*power);
-		rightFront.move_velocity((right)*power);
+		// leftGroup.move(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+  		// rightGroup.move(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+
+	
+
+		delay(20);
 	}
 }
