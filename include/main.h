@@ -73,6 +73,7 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "headers/globals.h"
+#include "headers/drive.h"
 /**
  * You can add C++-only headers here
  */

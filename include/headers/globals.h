@@ -1,14 +1,15 @@
 #include "lemlib/api.hpp"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/misc.hpp"
+#include "pros/motors.hpp"
 
 using namespace pros;
 
 extern Controller master;
 
 extern Motor cata;
-extern Motor intake1;
-extern Motor intake2;
+
+extern MotorGroup intake;
 
 extern Motor leftBack;
 extern Motor leftMid;

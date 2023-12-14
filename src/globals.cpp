@@ -1,10 +1,13 @@
 #include "main.h"
+#include "pros/motors.hpp"
 
 Controller master(pros::E_CONTROLLER_MASTER);
 
 Motor cata(10, E_MOTOR_GEAR_RED);
+
 Motor intake1(1, E_MOTOR_GEAR_GREEN);
 Motor intake2(-2, E_MOTOR_GEAR_GREEN);
+MotorGroup intake({intake1, intake2});
 
 Motor leftBack(-8, E_MOTOR_GEAR_BLUE);
 Motor leftMid(-7, E_MOTOR_GEAR_BLUE);
@@ -49,12 +52,15 @@ lemlib::OdomSensors_t odom {
 lemlib::ChassisController_t lateralPID{
 	18.514,
 	1.81583,
-	1,
-	100,
-	3,
-	500,
+    1,
+    1000,
+    3,
+    500,
 	5
 };
+
+// 18.514,
+// 	1.81583,
 
 lemlib::ChassisController_t angularPID{
 	2.2,
@@ -65,5 +71,8 @@ lemlib::ChassisController_t angularPID{
 	500,
 	40
 };
+
+// 2.2,
+// 	0.97,
 
 lemlib::Chassis chassis(drivetrain, lateralPID, angularPID, odom);

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "pros/misc.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 
 /**
@@ -27,20 +28,24 @@ void on_center_button() {
 void initialize() {
 	lcd::initialize();
 	chassis.calibrate();
+	cata.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	// //SET INITIAL POINT
 	chassis.setPose(0, 0, 0);
 	
 	// lcd::set_text(0, "Hello PROS User!");
 	// lcd::register_btn1_cb(on_center_button);
 
-	Task screenTask([&](){
-		while(true){
-			lcd::print(3, "X: %f", chassis.getPose().x); // x
-            lcd::print(4, "Y: %f", chassis.getPose().y); // y
-            lcd::print(5, "Theta: %f", chassis.getPose().theta); // heading
-			delay(10);
-		}
-	});
+	Task screenTask([&]() {
+        lemlib::Pose pose(0, 0, 0);
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(1, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(2, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(3, "Theta: %f", chassis.getPose().theta); // heading
+            // delay to save resources
+            pros::delay(50);
+        }
+    });
 }
 
 /**
@@ -63,75 +68,258 @@ void competition_initialize() {}
 
 
 void closeAuton(){
-	chassis.moveTo(8.6,  -30   , 6000, 100);
-
-}
-void farAuton(){
-	intake1.move_velocity(190);
-	intake2.move_velocity(190);
-
-	chassis.moveTo(0, 53, 4000, 85);
-
-	intake1.move_velocity(100);
-	intake2.move_velocity(100);
-
-	chassis.turnTo(-50, 45, 800, false, 80);
-
+	// pushes triball
+	chassis.moveTo(-2.6, -12.9, 1000, 80);
 	delay(100);
-
-	//push into goal
-	chassis.moveTo(-15, 50, 4000, 80);
-
-	intake1.move_velocity(-190);
-	intake2.move_velocity(-190);
-
-	delay(200);
-
-	intake1.move_velocity(0);
-	intake2.move_velocity(0);
-
-	delay(200);
-
-	chassis.moveTo(-11, 50, 4000, 80);
-
-	delay(100);
-
-	chassis.turnTo(15, 67, 1000, false, 100);
-
-	delay(100);
-	
-	chassis.moveTo(12, 68, 4000, 80);
-
-	intake1.move_velocity(190);
-	intake2.move_velocity(190);
-
-	delay(200);
-
-	chassis.turnTo(-50, 45, 800, false, 80);
-
 	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(-3.1, -17.1, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
 
-	delay(100);
 
-	chassis.moveTo(0, 50, 4000, 80);
+	//wings
+	chassis.moveTo(-0.4, 10.3, 1000, 120);
+	delay(20);
+	chassis.turnTo(-0.9, 12.1, 1000,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0.2, 16, 1000, 120);
+	delay(20);
+	wings.set_value(true);
+	delay(20);
+	chassis.turnTo(-0.9, 12.1, 1000,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	wings.set_value(false);
+	delay(20);
 
-	intake1.move_velocity(-190);
-	intake2.move_velocity(-190);
+	//bar
+	chassis.turnTo(-8.7, 8.7, 1000,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -6, 1000, 80);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(-5.35, 10.5, 1000,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(2.57, 14.01, 1000,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0.77, -38.36, 4000, 50);
+	delay(20);
+	/*
+	chassis.moveTo(-7.0, 21.5, 1000, 80);
+	delay(20);
+	wings.set_value(true);
+	delay(20);
+	chassis.turnTo(-25.0, 30.0, 1000,false, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0.73, 10.1, 1000, 120);
+	delay(20);
+	wings.set_value(false);
+	chassis.turnTo(0, -2, 1000,false,80);
+	delay(200);
+	chassis.moveTo(0, -20, 1000, 120);
+	delay(20);*/
 
-// 	chassis.moveTo(-20, 53, 4000, 80);
+	
 
-// 	chassis.turnTo(30, 0, 10000);
+	
+	delay(20);
+
+	// chassis.moveTo(8, -27.3, 1000, 100);
+	// chassis.setPose(0, 0, 0);
+	// delay(20);
+	// chassis.moveTo(0, -15, 1000, 150);
+	// delay(20);
+	//rush middle to disrupt triballs with wings
+
+	//move back and turn to goal
+
+	//move and push matchload into goal
+
+	//turn and move to matchload place
+
+	//move back for triball in mathload place
+
+	//move and stop under low bar
 }
+
+void farAutonRisky(){
+
+	//move straight
+	intake.move_velocity(190);
+	chassis.moveTo(0, 42.75, 1500, 100);
+	delay(200);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+
+	//turn to goal
+	chassis.turnTo(5, 3, 1000, false, 80);
+	intake.move_velocity(0);
+	delay(200);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+
+	// //push into goal
+	chassis.moveTo(0, 10, 1000, 100);
+	// chassis.moveTo(0, 6, 0, 1500, true, 0, 0.6, 100);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -5, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	intake.move_velocity(190);
+	chassis.turnTo(-5, -7, 1000, false, 80);
+	delay(20);
+	chassis.moveTo(-5, -7, 1000, 120);
+	delay(20);
+	
+
+	chassis.turnTo(-7, 5, 1000, false, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	intake.move_velocity(0);
+	delay(20);
+	chassis.moveTo(0, 15, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -15, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(1, -5, 1000, false, 80);
+	delay(20);
+	intake.move_velocity(190);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, 15, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(3, -5, 1000, false, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	intake.move_velocity(0);
+	chassis.moveTo(0, 30, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -10, 1500, 150);
+	delay(20);
+	chassis.moveTo(0, 300, 1500, 150);
+}
+
+void farAutonSafe(){
+
+}
+
 
 void skills(){
-	cata.move_velocity(90);
+
+
+	//Turn to goal
+	chassis.turnTo(-21, 39.84, 800);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, 2, 500);
+	delay(20);
+
+	//Shoot
+	cata.move_velocity(98);
+	delay(45000);
+	int val = limit.get_value();
+	while(!val){
+		cata.move_velocity(90);
+		val = limit.get_value();
+	}
+	cata.move_velocity(0);
+
+//7 black 3 yellow
+
+	//Move to opposite side
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(12.86, 22.12, 800,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -80, 5000, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(-16.5, 0.6, 800,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -15, 1000, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(-28.25, 23.59, 800,false,80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -29.79, 2000, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(10.07, 12.59, 1000,false,80);
+	delay(20);
+	chassis.moveTo(-10.07, -15.59, 2000, 80);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(20.25, 0, 1000,false,80);
+	delay(20);
+	wings.set_value(true);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(0, -28.0, 2000);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	for (int i=0; i<100000; i++) {
+		chassis.moveTo(0, 5.0, 1000);
+		delay(20);
+		chassis.moveTo(0, -8.0, 1000);
+		delay(20);
+	
+	}
+
+
+
+
+
+
+
+
 }
 
 void runAuton(int autonSelect) {
   switch (autonSelect) {
-    case 1: farAuton(); break;
+    case 1: farAutonRisky(); break;
 	case 2: closeAuton(); break;
-	case 3: skills(); break;
+	case 3: farAutonSafe(); break;
+	case 4: skills(); break;
     default: skills(); break;
   }
 }
@@ -148,7 +336,7 @@ void runAuton(int autonSelect) {
  * from where it left off.
  */
 void autonomous() {
-	runAuton(2);
+	runAuton(1);
 }
 
 /**
@@ -174,10 +362,8 @@ void opcontrol() {
 
 	double power = 0.9;
 
-	cata.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	intake1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	intake2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
+	intake.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+	
 	bool shoot = false;
 	bool toggle = false;
 
@@ -186,16 +372,13 @@ void opcontrol() {
 		int val = limit.get_value();
 
 		if(master.get_digital(DIGITAL_L1)){
-			intake1.move_velocity(190);
-			intake2.move_velocity(190);
+			intake.move_velocity(190);
 		}
 		else if (master.get_digital(DIGITAL_L2)){
-			intake1.move_velocity(-190);
-			intake2.move_velocity(-190);
+			intake.move_velocity(-190);
 		}
 		else {
-			intake1.move_velocity(0);
-			intake2.move_velocity(0);
+			intake.move_velocity(0);
 		}
 
 		// Wings
@@ -236,13 +419,6 @@ void opcontrol() {
 			}
 		}
 
-		if(shoot){
-			lcd::print(0, "true");
-		}
-		else{
-			lcd::print(0, "false");
-		}
-
 		if(shoot||!val){
 			cata.move_velocity(90);
 		}
@@ -253,14 +429,15 @@ void opcontrol() {
 		double rX = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
         double lY = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
 
-        int left = velocity(lY + rX);
-        int right = velocity(lY - rX);
+		// std::pair<double, double> speed = curvatureDrive(rX, lY);
+		// float left = speed.first;
+		// float right = speed.second;
+
+		int left = velocity(lY + rX);
+		int right = velocity(lY - rX);
 
 		leftGroup.move_velocity((left)*power);
 		rightGroup.move_velocity((right)*power);
-
-		// leftGroup.move(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-  		// rightGroup.move(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 
 	
 
