@@ -3,26 +3,26 @@
 
 Controller master(pros::E_CONTROLLER_MASTER);
 
-Motor cata(10, E_MOTOR_GEAR_RED);
+Motor cata(20, E_MOTOR_GEAR_RED);
 
-Motor intake1(1, E_MOTOR_GEAR_GREEN);
-Motor intake2(-2, E_MOTOR_GEAR_GREEN);
+Motor intake1(10, E_MOTOR_GEAR_GREEN);
+Motor intake2(-9, E_MOTOR_GEAR_GREEN);
 MotorGroup intake({intake1, intake2});
 
-Motor leftBack(-8, E_MOTOR_GEAR_BLUE);
+Motor leftBack(-6, E_MOTOR_GEAR_BLUE);
 Motor leftMid(-7, E_MOTOR_GEAR_BLUE);
-Motor leftFront(-6, E_MOTOR_GEAR_BLUE);
+Motor leftFront(-8, E_MOTOR_GEAR_BLUE);
 
-Motor rightBack(18, E_MOTOR_GEAR_BLUE);
-Motor rightMid(19, E_MOTOR_GEAR_BLUE);
-Motor rightFront(20, E_MOTOR_GEAR_BLUE);
+Motor rightBack(17, E_MOTOR_GEAR_BLUE);
+Motor rightMid(18, E_MOTOR_GEAR_BLUE);
+Motor rightFront(19, E_MOTOR_GEAR_BLUE);
 
-ADIDigitalIn limit('A');
+ADIDigitalIn limit('F');
 ADIDigitalOut wings('E');
 ADIEncoder verticalEnc('B', 'C');
-ADIEncoder horizontalEnc('D', 'F');
+ADIEncoder horizontalEnc('D', 'A');
 
-Imu inertial(21);
+Imu inertial(5);
 
 
 //Lemlib
@@ -50,8 +50,8 @@ lemlib::OdomSensors_t odom {
 };
 
 lemlib::ChassisController_t lateralPID{
-	18.514,
-	1.81583,
+	9.9,
+	1.1,
     1,
     1000,
     3,
@@ -63,8 +63,8 @@ lemlib::ChassisController_t lateralPID{
 // 	1.81583,
 
 lemlib::ChassisController_t angularPID{
-	2.2,
-	0.97,
+	1,
+	0.1,
 	1,
 	100,
 	3,

@@ -29,6 +29,7 @@ void initialize() {
 	lcd::initialize();
 	chassis.calibrate();
 	cata.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	intake.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 	// //SET INITIAL POINT
 	chassis.setPose(0, 0, 0);
 	
@@ -302,16 +303,7 @@ void skills(){
 		delay(20);
 		chassis.moveTo(0, -8.0, 1000);
 		delay(20);
-	
 	}
-
-
-
-
-
-
-
-
 }
 
 void runAuton(int autonSelect) {
@@ -361,8 +353,6 @@ int velocity(int vel) {
 void opcontrol() {
 
 	double power = 0.9;
-
-	intake.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 	
 	bool shoot = false;
 	bool toggle = false;
