@@ -27,26 +27,26 @@ void on_center_button() {
  */
 void initialize() {
 	lcd::initialize();
-	chassis.calibrate();
+	// chassis.calibrate();
 	cata.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	intake.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 	// //SET INITIAL POINT
-	chassis.setPose(0, 0, 0);
+	// chassis.setPose(0, 0, 0);
 	
 	// lcd::set_text(0, "Hello PROS User!");
 	// lcd::register_btn1_cb(on_center_button);
 
-	Task screenTask([&]() {
-        lemlib::Pose pose(0, 0, 0);
-        while (true) {
-            // print robot location to the brain screen
-            pros::lcd::print(1, "X: %f", chassis.getPose().x); // x
-            pros::lcd::print(2, "Y: %f", chassis.getPose().y); // y
-            pros::lcd::print(3, "Theta: %f", chassis.getPose().theta); // heading
-            // delay to save resources
-            pros::delay(50);
-        }
-    });
+	// Task screenTask([&]() {
+    //     lemlib::Pose pose(0, 0, 0);
+    //     while (true) {
+    //         // print robot location to the brain screen
+    //         pros::lcd::print(1, "X: %f", chassis.getPose().x); // x
+    //         pros::lcd::print(2, "Y: %f", chassis.getPose().y); // y
+    //         pros::lcd::print(3, "Theta: %f", chassis.getPose().theta); // heading
+    //         // delay to save resources
+    //         pros::delay(50);
+    //     }
+    // });
 }
 
 /**

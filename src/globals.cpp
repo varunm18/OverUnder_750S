@@ -3,26 +3,26 @@
 
 Controller master(pros::E_CONTROLLER_MASTER);
 
-Motor cata(20, E_MOTOR_GEAR_RED);
+Motor cata(1, E_MOTOR_GEAR_RED);
 
-Motor intake1(10, E_MOTOR_GEAR_GREEN);
-Motor intake2(-9, E_MOTOR_GEAR_GREEN);
+Motor intake1(-20, E_MOTOR_GEAR_GREEN);
+Motor intake2(10, E_MOTOR_GEAR_GREEN);
 MotorGroup intake({intake1, intake2});
 
 Motor leftBack(-6, E_MOTOR_GEAR_BLUE);
 Motor leftMid(-7, E_MOTOR_GEAR_BLUE);
-Motor leftFront(-8, E_MOTOR_GEAR_BLUE);
+Motor leftFront(8, E_MOTOR_GEAR_BLUE);
 
-Motor rightBack(17, E_MOTOR_GEAR_BLUE);
-Motor rightMid(18, E_MOTOR_GEAR_BLUE);
-Motor rightFront(19, E_MOTOR_GEAR_BLUE);
+Motor rightBack(16, E_MOTOR_GEAR_BLUE);
+Motor rightMid(17, E_MOTOR_GEAR_BLUE);
+Motor rightFront(-18, E_MOTOR_GEAR_BLUE);
 
 ADIDigitalIn limit('F');
 ADIDigitalOut wings('E');
 ADIEncoder verticalEnc('B', 'C');
 ADIEncoder horizontalEnc('D', 'A');
 
-Imu inertial(5);
+Imu inertial(9);
 
 
 //Lemlib
