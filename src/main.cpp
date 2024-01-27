@@ -74,7 +74,7 @@ void closeAuton(){
 	delay(100);
 	chassis.setPose(0, 0, 0);
 	delay(20);
-	chassis.moveTo(-3.1, -17.1, 1000, 120);
+	chassis.moveTo(-3.1, -17.1, 1000, 200);
 	delay(20);
 	chassis.setPose(0, 0, 0);
 	delay(20);
@@ -87,144 +87,157 @@ void closeAuton(){
 	delay(20);
 	chassis.setPose(0, 0, 0);
 	delay(20);
-	chassis.moveTo(0.2, 16, 1000, 120);
+	chassis.moveTo(0, 8, 1000, 120);
 	delay(20);
 	wings.set_value(true);
+	delay(10);
+	chassis.setPose(0, 0, 0);
 	delay(20);
-	chassis.turnTo(-0.9, 12.1, 1000,false,80);
+	chassis.moveTo(-2, 8, 1000, 120);
 	delay(20);
 	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(20, -3, 800, 200);
 	delay(20);
 	wings.set_value(false);
 	delay(20);
-
-	//bar
-	chassis.turnTo(-8.7, 8.7, 1000,false,80);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.moveTo(-9.49, 25.43, 5000, 80);
 	delay(20);
 	chassis.setPose(0, 0, 0);
 	delay(20);
-	chassis.moveTo(0, -6, 1000, 80);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(-5.35, 10.5, 1000,false,80);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(2.57, 14.01, 1000,false,80);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0.77, -38.36, 4000, 50);
-	delay(20);
-	/*
-	chassis.moveTo(-7.0, 21.5, 1000, 80);
-	delay(20);
+	chassis.turnTo(3.67, 1.30, 1000,false,80);
 	wings.set_value(true);
 	delay(20);
-	chassis.turnTo(-25.0, 30.0, 1000,false, 80);
 	delay(20);
 	chassis.setPose(0, 0, 0);
 	delay(20);
-	chassis.moveTo(0.73, 10.1, 1000, 120);
+	chassis.moveTo(-1.6, 14.72, 1000, 80);
 	delay(20);
-	wings.set_value(false);
-	chassis.turnTo(0, -2, 1000,false,80);
-	delay(200);
-	chassis.moveTo(0, -20, 1000, 120);
-	delay(20);*/
-
-	
-
-	
+	chassis.setPose(0, 0, 0);
 	delay(20);
+	chassis.moveTo(0, 10, 1000, 120);
+	delay(20);
+	chassis.setPose(0, 0, 0);
+	delay(20);
+	chassis.turnTo(-5, 0, 1000,false,80);
 
-	// chassis.moveTo(8, -27.3, 1000, 100);
+
+	// chassis.turnTo(-0.9, 12.1, 1000,false,80);
+	// delay(20);
 	// chassis.setPose(0, 0, 0);
 	// delay(20);
-	// chassis.moveTo(0, -15, 1000, 150);
+	// wings.set_value(false);
 	// delay(20);
-	//rush middle to disrupt triballs with wings
 
-	//move back and turn to goal
-
-	//move and push matchload into goal
-
-	//turn and move to matchload place
-
-	//move back for triball in mathload place
-
-	//move and stop under low bar
+	//bar
+	// chassis.turnTo(-8.7, 8.7, 1000,false,80);
+	// delay(20);
+	// chassis.setPose(0, 0, 0);
+	// delay(20);
+	// chassis.moveTo(-1.6, 14.72, 1000, 80);
+	// chassis.setPose(0, 0, 0);
+	// delay(20);
+	// chassis.turnTo(-5.35, 10.5, 1000,false,80);
+	// delay(20);
+	// chassis.setPose(0, 0, 0);
+	// delay(20);
+	// chassis.turnTo(2.57, 14.01, 1000,false,80);
+	// delay(20);
+	// chassis.setPose(0, 0, 0);
+	// delay(20);
+	// chassis.moveTo(0.77, -38.36, 4000, 50);
+	// delay(20);
 }
 
 void farAutonRisky(){
-
-	//move straight
 	intake.move_velocity(190);
-	chassis.moveTo(0, 42.75, 1500, 100);
+	chassis.moveTo(0, 29, 1000, 80);
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	chassis.turnTo(10, 6.5, 800, false, 100);
+	delay(10);
+	intake.move_velocity(-190);
+	delay(400);
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	chassis.turnTo(-20, -26, 1000, false, 100);
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	intake.move_velocity(190);
+	delay(10);
+	chassis.moveTo(0, 20.5, 700, 180);
+	delay(10);
+	chassis.moveTo(0, 8, 600, 80);
+	delay(10);
+
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	chassis.turnTo(6, -10, 700,false, 100);
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	chassis.moveTo(0, 8, 600, 80);
+	delay(10);
+	intake.move_velocity(-190);
 	delay(200);
+	chassis.moveTo(0, 0, 700, 80);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-
-	//turn to goal
-	chassis.turnTo(5, 3, 1000, false, 80);
-	intake.move_velocity(0);
-	delay(200);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-
-	// //push into goal
-	chassis.moveTo(0, 10, 1000, 100);
-	// chassis.moveTo(0, 6, 0, 1500, true, 0, 0.6, 100);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -5, 1000, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
+	delay(10);
+	chassis.turnTo(-49.5, 10.48, 700, false, 100);
+	delay(10);
 	intake.move_velocity(190);
-	chassis.turnTo(-5, -7, 1000, false, 80);
-	delay(20);
-	chassis.moveTo(-5, -7, 1000, 120);
-	delay(20);
-	
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
 
-	chassis.turnTo(-7, 5, 1000, false, 80);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	intake.move_velocity(0);
-	delay(20);
-	chassis.moveTo(0, 15, 1000, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -15, 1000, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(1, -5, 1000, false, 80);
-	delay(20);
+	chassis.moveTo(0, 19, 750, 100);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.turnTo(30, 2.95, 700, false, 100);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.moveTo(0, 5, 600, 80);
+	delay(10);
+	intake.move_velocity(-190);
+	delay(300);
+
+	chassis.setPose(0, 0 , 0);
+	delay(10);
 	intake.move_velocity(190);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, 15, 1000, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(3, -5, 1000, false, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	intake.move_velocity(0);
-	chassis.moveTo(0, 30, 1000, 120);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -10, 1500, 150);
-	delay(20);
-	chassis.moveTo(0, 300, 1500, 150);
+	delay(10);
+	chassis.turnTo(-5, -14.54, 750, false, 100);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.moveTo(0, 18, 700, 100);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.moveTo(0, -5, 400, 100);
+	delay(10);
+
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.turnTo(0, -24, 800, false, 100);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	wings.set_value(true);
+	delay(10);
+	intake.move_velocity(-190);
+	chassis.moveTo(0, 25, 700, 200);
+	delay(10);
+	chassis.setPose(0, 0 , 0);
+	delay(10);
+	chassis.moveTo(0, -20, 700, 2000);
+
 }
 
 void farAutonSafe(){
@@ -233,19 +246,17 @@ void farAutonSafe(){
 
 
 void skills(){
-
-
 	//Turn to goal
-	chassis.turnTo(-21, 39.84, 800);
-	delay(20);
+	chassis.turnTo(-30, 39.84, 800);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, 2, 500);
-	delay(20);
+	delay(10);
+	chassis.moveTo(0, 7, 500);
+	delay(10);
 
 	//Shoot
 	cata.move_velocity(98);
-	delay(45000);
+	delay(43000);
 	int val = limit.get_value();
 	while(!val){
 		cata.move_velocity(90);
@@ -253,57 +264,55 @@ void skills(){
 	}
 	cata.move_velocity(0);
 
-//7 black 3 yellow
-
 	//Move to opposite side
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(12.86, 22.12, 800,false,80);
-	delay(20);
+	delay(10);
+	chassis.turnTo(12, 11.75, 800, false, 80);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -80, 5000, 80);
-	delay(20);
+	delay(10);
+	chassis.moveTo(12, -82, 3000, 120);
+	delay(10);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(-16.5, 0.6, 800,false,80);
-	delay(20);
+	delay(10);
+	chassis.turnTo(-30.71, -5, 800,false,80);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -15, 1000, 80);
-	delay(20);
+	delay(10);
+	chassis.moveTo(0, -21, 800, 120);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(-28.25, 23.59, 800,false,80);
-	delay(20);
+	delay(10);
+	chassis.turnTo(28, -5, 800, false, 80);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -29.79, 2000, 80);
-	delay(20);
+	delay(10);
+	chassis.moveTo(0, 18, 800, 120);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(10.07, 12.59, 1000,false,80);
-	delay(20);
-	chassis.moveTo(-10.07, -15.59, 2000, 80);
-	delay(20);
+	delay(10);
+	chassis.turnTo(5, 1, 800, false, 80);
+	delay(10);
 	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.turnTo(20.25, 0, 1000,false,80);
-	delay(20);
+	delay(10);
+	chassis.moveTo(0, 33.5, 1200, 120);
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
+	chassis.turnTo(5, 1, 800, false, 80);
+	delay(10);
+	chassis.setPose(0, 0, 0);
+	delay(10);
 	wings.set_value(true);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	chassis.moveTo(0, -28.0, 2000);
-	delay(20);
-	chassis.setPose(0, 0, 0);
-	delay(20);
-	for (int i=0; i<100000; i++) {
-		chassis.moveTo(0, 5.0, 1000);
-		delay(20);
-		chassis.moveTo(0, -8.0, 1000);
-		delay(20);
+	for(int i=0; i<4; i++){
+		chassis.moveTo(0, 27, 1200, 120);
+		delay(10);
+		chassis.moveTo(0, -5, 600, 120);
+		delay(10);
 	}
+	chassis.moveTo(0, -5, 600, 120);
+	delay(10);
 }
 
 void runAuton(int autonSelect) {
@@ -328,7 +337,7 @@ void runAuton(int autonSelect) {
  * from where it left off.
  */
 void autonomous() {
-	runAuton(1);
+	runAuton(2);
 }
 
 /**
@@ -356,6 +365,14 @@ void opcontrol() {
 	
 	bool shoot = false;
 	bool toggle = false;
+	// SKILLS
+	// chassis.turnTo(-30, 39.84, 800);
+	// delay(10);
+	// chassis.setPose(0, 0, 0);
+	// delay(10);
+	// chassis.moveTo(0, 7, 500);
+	// delay(10);
+	// shoot=true;
 
 	while (true) {
 		
