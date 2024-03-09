@@ -9,7 +9,7 @@ extern Controller master;
 
 extern Motor cata;
 
-extern MotorGroup intake;
+extern Motor intake;
 
 extern Motor leftBack;
 extern Motor leftMid;
@@ -21,8 +21,11 @@ extern Motor rightFront;
 extern MotorGroup leftGroup;
 extern MotorGroup rightGroup;
 
-extern ADIDigitalIn limit;
 extern ADIDigitalOut wings;
+extern ADIDigitalOut hang;
+extern ADIDigitalOut park;
+extern ADIAnalogIn selector;
+
 extern ADIEncoder verticalEnc;
 extern ADIEncoder horizontalEnc;
 
