@@ -8,4 +8,4 @@ Coded in C++ using the [PROS Library](https://pros.cs.purdue.edu)
 * Far Side, Close Side and Skills autonomous code
 * Autons are implmeneted using [LemLib v0.5.0-rc5](https://github.com/LemLib/LemLib/releases/tag/v0.5.0-rc.5)
 * Includes advanced motion profiling with a combined PID and Odometry system that uses tracking wheels and an inertial sensor
-* Autons utilize [Jerry Path Generator](https://path.jerryio.com), Pure Pursuit and a Boomerand controller with asynchronous commands
+* Autons utilize [Jerry Path Generator](https://path.jerryio.com), Pure Pursuit and a Boomerang controller with asynchronous commands
